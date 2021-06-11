@@ -1,0 +1,18 @@
+<form action="/cats/add-cat" method="POST" class="cat-form">
+    <h2>Add Cat</h2>
+    <label for="name">Name</label>
+    <input name="name" type="text" id="name">
+    <label for="description">Description</label>
+    <textarea name="description" id="description"></textarea>
+    <label for="imageUrl">Image</label>
+    <input name="imageUrl" type="text" id="imageUrl">
+    <label for="group">Breed</label>
+    <select name="breed" id="group">
+        {{#if breeds}}
+            {{#each breeds}}
+                {{> breed}}
+            {{/each}}
+        {{/if}}
+    </select>
+    <button type="submit">Add Cat</button>
+</form>
