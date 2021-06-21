@@ -64,7 +64,7 @@ module.exports = () => (req, res, next) => {
                 console.log('Known user', userData.username);
             } catch (err) {
                 res.clearCookie(COOKIE_NAME);
-                res.redirect('/auth/login');
+                res.redirect('/user/login');
                 return false;
             }
         }
