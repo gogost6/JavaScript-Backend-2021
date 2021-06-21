@@ -14,7 +14,8 @@ async function createUser(email, username, hashedPassword) {
 }
 
 async function getUserByUsername(username) {
-    return await User.findOne({ username: { $regex: username, $options: 'i' } }).lean();
+    const pattern = new RegExp(`^${username}$`, 'i');
+    return await User.findOne({ username: { $regex: pattern } }).lean();
 }
 
 async function getAllUsers() {
