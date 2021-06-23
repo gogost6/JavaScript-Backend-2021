@@ -177,6 +177,11 @@ router.get('/like/:id', isAuth(), async (req, res) => {
             throw new Error(errors.map(e => e.msg).join('\n'));
         }
 
+        const theather = await req.storage.getById(req.params.id)
+        if(res.locals.user.username == theather.owner) {
+            throw new Error('The owner can\'t like his own play!');
+        }
+
         await req.storage.like(req.params.id, res.locals.user.username);
         res.redirect(`/theathers/details/${req.params.id}`, 304, { title: 'Details page' });
     } catch (err) {
