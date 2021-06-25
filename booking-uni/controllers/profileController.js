@@ -12,8 +12,6 @@ router.get('/:username', async (req, res) => {
         }
     }
 
-    console.log(arr);
-
     const viewModel = {
         username: profile.username,
         email: profile.email

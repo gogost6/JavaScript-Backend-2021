@@ -155,7 +155,7 @@ router.get('/delete/:id', preloadHotel(), isOwner(), async (req, res) => {
         if (errors.length > 0) {
             throw new Error(errors.map(e => e.msg).join('\n'));
         }
-        
+
         await req.storage.deleteHotel(req.params.id);
         res.redirect('/', 304, { title: 'Home page' });
     } catch (err) {
@@ -175,7 +175,7 @@ router.get('/book/:id', isAuth(), async (req, res) => {
         res.redirect(`/hotels/details/${req.params.id}`, 304, { title: 'Details page' });
     } catch (err) {
         console.log(err);
-        res.redirect(`/hotels/details/${req.params.id}`, { errors: err.message.split('\n') });
+        res.render('noFreeRooms');
     }
 })
 

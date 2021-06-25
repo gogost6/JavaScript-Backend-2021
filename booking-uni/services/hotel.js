@@ -2,7 +2,7 @@ const Hotel = require('../models/Hotel');
 const User = require('../models/User');
 
 async function getAll() {
-    const hotels = Hotel.find({}).sort({freeRooms: 1}).lean();
+    const hotels = Hotel.find({}).sort({ freeRooms: 1 }).lean();
     return hotels;
 }
 
@@ -23,7 +23,7 @@ async function edit(id, data) {
 
 async function deleteHotel(id) {
     await Hotel.findByIdAndRemove({ _id: id }, (err) => {
-        if(err) {
+        if (err) {
             console.log(err);
         }
         console.log("Successful deletion");
@@ -31,13 +31,19 @@ async function deleteHotel(id) {
 }
 
 async function book(id, username) {
-    const hotel = await Hotel.findOne({ _id: id });
-    const user = await User.findOne({username});
 
-    if(!hotel || !user) {
+    const hotel = await Hotel.findOne({ _id: id });
+    const user = await User.findOne({ username });
+
+    if (!hotel || !user) {
         throw new ReferenceError('Wrong data!');
     }
 
+    if (hotel.freeRooms == 0) {
+        throw new ReferenceError('No free rooms left!');
+    }
+
+    hotel.freeRooms -= 1;
     hotel.bookedUsers.push(user);
     hotel.save();
     user.bookedHotels.push(hotel);
@@ -46,9 +52,9 @@ async function book(id, username) {
 
 async function offered(name, username) {
     const hotel = await Hotel.findOne({ hotel: name });
-    const user = await User.findOne({username});
+    const user = await User.findOne({ username });
 
-    if(!hotel || !user) {
+    if (!hotel || !user) {
         throw new ReferenceError('Wrong data!');
     }
     user.offeredHotels.push(hotel);
@@ -56,11 +62,11 @@ async function offered(name, username) {
 }
 
 module.exports = {
-            create,
-            getAll,
-            getById,
-            edit,
-            deleteHotel,
-            book,
-            offered
-        }
+    create,
+    getAll,
+    getById,
+    edit,
+    deleteHotel,
+    book,
+    offered
+}

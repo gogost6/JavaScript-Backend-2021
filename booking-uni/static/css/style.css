@@ -13,6 +13,11 @@ a {
     color: white;
 }
 
+a.free {
+    text-decoration: none;
+    color: cornflowerblue;
+}
+
 ul {
     padding-inline-start: 0;
 }
