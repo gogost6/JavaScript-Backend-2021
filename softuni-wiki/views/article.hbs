@@ -1,0 +1,15 @@
+<div class="spacer">
+    <h2>{{this.data.title}}
+        {{#if owner}}
+        <div class="controls">
+            <a href="/wiki/edit/{{this.data._id}}">[edit]</a>
+            <a href="/wiki/delete/{{this.data._id}}">[delete]</a>
+        </div>
+        {{/if}}
+    </h2>
+    <article>
+        <p>
+            {{this.data.description}}
+        </p>
+    </article>
+</div>

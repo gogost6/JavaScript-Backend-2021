@@ -1,0 +1,22 @@
+<section id="viewRegister">
+    <h2>Create your account:</h2>
+    <form action="/auth/register" method="POST" id="formRegister">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" placeholder="Enter your Username" value="{{data.username}}">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" placeholder="Password">
+        <label for="rePassword">Repeat Password:</label>
+        <input type="password" id="rePassword" name="rePassword" placeholder="Repeat Password">
+        <input type="submit" class="register" value="Register">
+    </form>
+</section>
+
+<!-- <div>
+            <div class="notification loadingBox">
+                Loading …
+            </div>
+            <div class="notification infoBox">
+                <span>Info</span>
+            </div>
+            
+        </div> -->

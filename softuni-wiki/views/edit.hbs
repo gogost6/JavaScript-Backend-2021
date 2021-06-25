@@ -1,0 +1,12 @@
+<section>
+    <h2>Edit article</h2>
+    <div class="spacer">
+        <form action="/wiki/edit/{{article._id}}" method="POST">
+            <label>Article title</label>
+            <input type="text" class="title" name="title" value="{{article.title}}">
+            <label>Content</label>
+            <textarea type="text" name="description">{{article.description}}</textarea>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+</section>

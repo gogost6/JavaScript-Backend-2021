@@ -1,0 +1,14 @@
+<section>
+    <h2>Search results for: {{req.query.search}}</h2>
+    <div class="spacer">
+        <ul>
+            {{#if found}}
+            {{#each found}}
+            <li>
+                <a href="/wiki/article/{{this._id}}">{{this.title}}</a>
+            </li>
+            {{/each}}
+            {{/if}}
+        </ul>
+    </div>
+</section>

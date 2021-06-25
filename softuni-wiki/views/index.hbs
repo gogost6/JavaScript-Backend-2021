@@ -1,0 +1,16 @@
+<section id="featured">
+    <h2>Latests articles</h2>
+    {{#if article}}
+    {{#each article}}
+    <article>
+        <h3>{{this.title}}</h3>
+        <p>
+            {{this.description}}
+        </p>
+        <div class="controls">
+            <a href="/wiki/article/{{this._id}}">Read more</a>
+        </div>
+    </article>
+    {{/each}}
+    {{/if}}
+</section>

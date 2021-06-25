@@ -1,0 +1,12 @@
+<section>
+    <h2>Create new article</h2>
+    <div class="spacer">
+        <form action="/wiki/add" method="POST">
+            <label>Article title</label>
+            <input type="text" class="title" name="title" value="{{data.title}}">
+            <label>Content</label>
+            <textarea type="text" name="description" value="{{data.description}}"></textarea>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+</section>
