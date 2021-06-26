@@ -1,0 +1,22 @@
+<h1>Create New Offer</h1>
+<p class="message"></p>
+<form action="/shoes/create" method="POST">
+    <div>
+        <input type="text" name="name" placeholder="Name..." value="{{data.name}}">
+    </div>
+    <div>
+        <input type="text" name="price" placeholder="Price..." value="{{data.price}}">
+    </div>
+    <div>
+        <input type="text" name="imageUrl" placeholder="Image url..." value="{{data.imgUrl}}">
+    </div>
+    <div>
+        <textarea name="description" placeholder="Give us some description about this offer...">{{data.description}}</textarea>
+    </div>
+    <div>
+        <input type="text" name="brand" placeholder="Brand..." value="{{data.brand}}">
+    </div>
+    <div>
+        <button type="submit">Create</button>
+    </div>
+</form>

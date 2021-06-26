@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <link rel="icon" type="image/png" href="/static/img/favicon.png">
+    <title>{{title}}</title>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul>
+                {{#if user}}
+                <li>
+                    <a href="/shoes/create">Create new offer</a>
+                </li>
+                <li>
+                    <a href="/shoes">
+                        <img src="/static/public/sneakers.png" alt="shoe logo">
+                    </a>
+                </li>
+                <li>Welcome, <a href="/shoes/profile">{{user.email}}</a> 
+                    <a href="/user/logout">Logout</a>
+                </li>
+                {{else}}
+                <li class="site-logo">Shoe</li>
+                <li>
+                    <a href="/shoes">
+                        <img src="/static/public/sneakers.png" alt="shoe logo">
+                    </a>
+                </li>
+                <li class="site-logo">Shelf</li>
+                {{/if}}
+            </ul>
+        </nav>
+    </header>
+    <main>
+        {{{body}}}
+    </main>
+    <footer>
+        <p><a href="https://softuni.bg">Software University</a> - JS Back End @ 2020</p>
+    </footer>
+</body>
+
+</html>
