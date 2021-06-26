@@ -74,7 +74,7 @@ router.post('/create',
                     errors: err.message.split('\n')
                 }
             }
-            res.redirect('shoes/create', data);
+            res.render('shoes/create', data);
         }
     });
 
@@ -154,7 +154,7 @@ router.post('/edit/:id',
             const data = {
                 errors: err.message.split('\n'),
                 title: 'Edit page',
-                data: {
+                shoe: {
                     name: req.body.name,
                     price: req.body.price,
                     imageUrl: req.body.imageUrl,
@@ -163,7 +163,7 @@ router.post('/edit/:id',
                     errors: err.message.split('\n')
                 }
             }
-            res.redirect(`/shoes/edit/${req.params.id}`, data);
+            res.render('shoes/edit', data);
         }
     });
 
