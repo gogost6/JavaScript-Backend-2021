@@ -27,7 +27,6 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
 
                 <ul class="navbar-nav ml-auto">
-                    {{#if user}}
                     <!-- Guest users and Logged users -->
                     <li class="nav-item">
                         <a class="nav-link" href="/">Home</a>
@@ -35,6 +34,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/trips/shared">Shared Trips</a>
                     </li>
+                    {{#if user}}
                     <!-- Logged users -->
                     <li class="nav-item">
                         <a class="nav-link" href="/trips/create">Offer Trip</a>

@@ -77,16 +77,13 @@ router.post('/create', isAuth(),
                 price: req.body.price,
                 title: "Create page",
                 owner: res.locals.user
-
-            }
-
-            const ctxRender = {
-                data: await req.storage.getAll(),
-                title: 'Shared trips'
             }
 
             await req.storage.create(ctx, res.locals.user.email);
-            res.redirect('/trips/shared', ctxRender);
+            res.render('shared-trips', {
+                data: await req.storage.getAll(),
+                title: 'Shared trips'
+            });
         } catch (err) {
             console.log(err);
             const data = {
@@ -110,7 +107,8 @@ router.post('/create', isAuth(),
 
 router.get('/details/:id', async (req, res) => {
     const trip = await req.storage.getById(req.params.id);
-    const user = await req.user.getUserByEmail(res.locals.user.email);
+    const emailForUser = res.locals.user ? res.locals.user.email : undefined;
+    const user = await req.user.getUserByEmail(emailForUser);
     const passengers = trip.buddies.length > 0 ? true : false;
 
     if (passengers) {
@@ -122,12 +120,15 @@ router.get('/details/:id', async (req, res) => {
         const ctx = {
             trip,
             id: req.params.id,
-            owner: user.createdTrips.find(x => x._id == req.params.id) ? true : false,
             seats: trip.seats > 0 ? true : false,
             buddie: trip.buddies.find(x => x.email == user.email) ? true : false,
             passengers,
             title: "Details page",
             emails: emails.join(', ')
+        }
+
+        if(user) {
+            ctx.owner = user.createdTrips.find(x => x._id == req.params.id) ? true : false;
         }
         console.log(ctx.owner);
         res.render('trip-details', ctx)
@@ -135,12 +136,16 @@ router.get('/details/:id', async (req, res) => {
         const ctx = {
             trip,
             id: req.params.id,
-            owner: user.createdTrips.find(x => x._id == req.params.id) ? true : false,
             seats: trip.seats > 0 ? true : false,
             buddie: trip.buddies.find(x => x.email == user.email) ? true : false,
             passengers,
             title: "Details page",
         }
+
+        if(user) {
+            ctx.owner = user.createdTrips.find(x => x._id == req.params.id) ? true : false;
+        }
+
         res.render('trip-details', ctx)
     }
 });
@@ -210,44 +215,45 @@ router.post('/edit/:id', preloadTrip(), isOwner(),
                 endPoint: req.body.endPoint,
                 seats: req.body.seats,
                 description: req.body.description,
+                date: req.body.date,
+                time: req.body.time,
                 carImage: req.body.carImage,
                 carBrand: req.body.carBrand,
                 price: req.body.price,
                 title: "Details page"
             }
-
+            console.log(req.body);
             await req.storage.edit(req.params.id, ctx);
             res.redirect(`/trips/details/${req.params.id}`);
         } catch (err) {
             console.log(err);
-            const data = {
+            const ctx = {
                 errors: err.message.split('\n'),
                 title: 'Edit page',
+                id: req.params.id,
                 data: {
                     startingPoint: req.body.startingPoint,
                     endPoint: req.body.endPoint,
                     seats: req.body.seats,
                     description: req.body.description,
+                    date: req.body.date,
+                    time: req.body.time,
                     carImage: req.body.carImage,
                     carBrand: req.body.carBrand,
-                    price: req.body.price,
-                    title: "Edit page",
-                    errors: err.message.split('\n')
+                    price: req.body.price
                 }
             }
-            res.render('trip-edit', data);
+            res.render(`trip-edit`, ctx);
         }
-});
+    });
 
 router.get('/delete/:id', preloadTrip(), isOwner(), async (req, res) => {
     try {
-        const ctx = {
+        await req.storage.deleteTrip(req.params.id);
+        res.render('shared-trips', {
             data: await req.storage.getAll(),
             title: 'Shared trips'
-        }
-
-        await req.storage.deleteTrip(req.params.id);
-        res.redirect('/trips/shared', ctx);
+        });
     } catch (err) {
         console.log(err);
         res.redirect(`/trips/details/${req.params.id}`);

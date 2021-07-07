@@ -14,7 +14,11 @@ async function createUser(email, hashedPassword, gender) {
 
 async function getUserByEmail(email) {
     const pattern = new RegExp(`^${email}$`, 'i');
-    return await User.findOne({ email: { $regex: pattern } }).populate('createdTrips').lean();
+    if(email) {
+        return await User.findOne({ email: { $regex: pattern } }).populate('createdTrips').lean();
+    } else {
+        return false;
+    }
 }
 
 async function getAllUsers() {
